@@ -90,4 +90,17 @@ public class Player : MonoBehaviour
         Quaternion quaternion = new Quaternion(0, 0, 0, 0);
         Instantiate(BulletObj, BulletPos.transform.position, quaternion).GetComponent<Bullet>().InstantiateBullet(direction);
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Enemy")
+        {
+            DataManager.instance.playerHP -= 1;
+            if(DataManager.instance.playerHP < 0)
+            {
+                DataManager.instance.playerHP = 0;
+            }
+            UIMAnager.instance.PlayerHP();
+        }
+    }
 }
